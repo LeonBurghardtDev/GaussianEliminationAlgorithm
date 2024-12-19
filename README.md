@@ -25,13 +25,14 @@ The program implements the Gaussian Elimination algorithm in two main phases:
 - **Goal:** Solve for the unknowns starting from the last row.
 - Starting from the last equation, substitute the known values into the equations above to solve for all variables.
 
-**Example:** For the system \( Ax = b \), where:
+**Example:** For the system Ax = b, where:
 
-\[
-A = \begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}, \quad b = \begin{bmatrix} 8 \\ 13 \end{bmatrix}
-\]
+A = [[2, 1],
+     [1, 3]],
 
-The program performs elimination to solve for \( x \).
+b = [8, 13]
+
+The program performs elimination to solve for x.
 
 ## How to Use
 1. **Input Matrix and Vector:**
