@@ -1,9 +1,10 @@
-﻿<Window x:Class="GaussianEliminationAlgorithm.MainWindow"
+﻿<Window x:Class="GaussianEliminationAlgorithm.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 
-        Title="Gaussian Elimination" Height="600" Width="800"
+        Title="Gaussian Elimination" Height="1000" Width="1400"
+        ResizeMode="NoResize"
         Background="#F9F9F9" WindowStartupLocation="CenterScreen">
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -23,7 +24,7 @@
                 <Run Text="Stefan Harmeling" FontStyle="Italic" />
                 <LineBreak />
                 <Hyperlink NavigateUri="https://decker.cs.tu-dortmund.de/decks/harmeling/lecture-linear-algebra/21-gausssche-algorithmus-deck.pdf" 
-                           Foreground="#2196F3" FontWeight="Bold">
+                           Foreground="#2196F3" FontWeight="Bold" RequestNavigate="Hyperlink_RequestNavigate">
                     Lecture Reference (PDF)
                 </Hyperlink>
             </TextBlock>
@@ -126,6 +127,20 @@
             <Button Content="Reset the matrix" Width="100" Height="35" Margin="5"
                     Background="#6C757D" Foreground="White" FontWeight="Bold"
                     Command="{Binding ResetCommand}"/>
+
+
+
+            <TextBlock FontSize="11" Foreground="#555" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
+    © 2024 
+    <Hyperlink NavigateUri="https://leon-burghardt.dev" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#2196F3">
+        Leon Burghardt
+    </Hyperlink>. All rights reserved.
+            </TextBlock>
+
         </StackPanel>
+
+        
+
+
     </Grid>
 </Window>

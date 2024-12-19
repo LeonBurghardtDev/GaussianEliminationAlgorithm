@@ -1,8 +1,10 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
-namespace GaussianEliminationAlgorithm
+namespace GaussianEliminationAlgorithm.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml.
@@ -18,6 +20,18 @@ namespace GaussianEliminationAlgorithm
             InitializeComponent();
             DataContext = new GaussianEliminationAlgorithm.ViewModels.MainViewModel();
         }
+
+        /// <summary>
+        /// Handles the <see cref="Hyperlink.RequestNavigate"/> event for navigating to an external URL.
+        /// </summary>
+        /// <param name="sender">The source of the event, typically the <see cref="Hyperlink"/> control.</param>
+        /// <param name="e">The event data containing the navigation URI.</param>
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+            e.Handled = true;
+        }
+
 
         /// <summary>
         /// Handles numeric input validation for text inputs.
