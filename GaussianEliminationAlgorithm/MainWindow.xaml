@@ -1,0 +1,131 @@
+﻿<Window x:Class="GaussianEliminationAlgorithm.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+
+        Title="Gaussian Elimination" Height="600" Width="800"
+        Background="#F9F9F9" WindowStartupLocation="CenterScreen">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel HorizontalAlignment="Left" Margin="0,0,0,10">
+            <TextBlock Text="Gaussian Elimination Calculator"
+                       FontSize="22" FontWeight="Bold" Foreground="#333" />
+
+            <TextBlock FontSize="11" Foreground="#555">
+                Implementation based on the lecture from 
+                <Run Text="Stefan Harmeling" FontStyle="Italic" />
+                <LineBreak />
+                <Hyperlink NavigateUri="https://decker.cs.tu-dortmund.de/decks/harmeling/lecture-linear-algebra/21-gausssche-algorithmus-deck.pdf" 
+                           Foreground="#2196F3" FontWeight="Bold">
+                    Lecture Reference (PDF)
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
+
+        <!-- Matrix Size Input -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10">
+            <TextBlock FontWeight="SemiBold" FontSize="11" Foreground="#555" VerticalAlignment="Center" Margin="0,0,10,0">
+                <Run Text="Enter the value of" />
+                <Run Text="n" FontStyle="Italic" />    
+                <Run Text="in a quadratic" />
+                <Run Text="(n x n) " FontStyle="Italic" />
+                <Run Text="matrix " />
+            </TextBlock>
+
+            <xctk:IntegerUpDown Width="50" Height="20" 
+                                Value="{Binding MatrixSize, UpdateSourceTrigger=PropertyChanged}" 
+                                Minimum="1" Maximum="10" 
+                                FontSize="11" HorizontalContentAlignment="Center" />
+
+            <Button Content="Show Matrix" FontSize="11" Width="150" Height="30" Margin="10,0,0,0" 
+                    Background="#6C757D" Foreground="White" FontWeight="Bold"
+                    Command="{Binding GenerateMatrixCommand}"/>
+            <Button Content="Fill matrix with random numbers" FontSize="11" Width="200" Height="30" Margin="10,0,0,0" 
+                    Background="#6C757D" Foreground="White" FontWeight="Bold"
+                    Command="{Binding FillMatrixWithRandomNumbersCommand}"/> 
+        </StackPanel>
+
+        <!-- Matrix Input Grid -->
+        <ScrollViewer Grid.Row="2" Margin="0,20" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Grid>
+                <!-- Define columns for the matrix and the right-hand side -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <!-- Matrix -->
+                    <ColumnDefinition Width="Auto" />
+                    <!-- Separator -->
+                    <ColumnDefinition Width="Auto" />
+                    <!-- Right-hand side -->
+                </Grid.ColumnDefinitions>
+
+                <!-- Matrix Grid -->
+                <ItemsControl Grid.Column="0" ItemsSource="{Binding Matrix}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Rows="{Binding CurrentMatrixSize}" Columns="{Binding CurrentMatrixSize}" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <!-- Index above the cell -->
+                                <TextBlock Text="{Binding Index}" FontWeight="Bold" FontSize="12" Foreground="#444" HorizontalAlignment="Center" />
+                                <!-- Matrix Cell -->
+                                <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="40" Height="40" Margin="2" FontSize="14"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 PreviewTextInput="NumericInputHandler" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Separator -->
+                <TextBlock Grid.Column="1" Text="" FontSize="20" FontWeight="Bold" Foreground="#444"
+                   VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="10,0" />
+
+                <!-- Right-hand side (b column) -->
+                <ItemsControl Grid.Column="2" ItemsSource="{Binding RightHandSide}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Rows="{Binding CurrentMatrixSize}" Columns="1" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <!-- Index above the cell -->
+                                <TextBlock Text="{Binding Index}" FontWeight="Bold" FontSize="12" Foreground="#444" HorizontalAlignment="Center" />
+                                <!-- Right-hand side Cell -->
+                                <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="40" Height="40" Margin="2" FontSize="14"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </ScrollViewer>
+
+
+
+
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,20">
+            <Button Content="Solve the equation system" Width="200" Height="35" Margin="5"
+                    Background="#6C757D" Foreground="White" FontWeight="Bold"
+                    Command="{Binding CalculateCommand}"/>
+            <Button Content="Reset the matrix" Width="100" Height="35" Margin="5"
+                    Background="#6C757D" Foreground="White" FontWeight="Bold"
+                    Command="{Binding ResetCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>
