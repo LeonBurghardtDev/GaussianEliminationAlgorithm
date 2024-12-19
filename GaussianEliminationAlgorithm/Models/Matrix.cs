@@ -55,6 +55,22 @@ namespace GaussianEliminationAlgorithm.Models
         }
 
         /// <summary>
+        /// Creates a deep copy of the matrix.
+        /// </summary>
+        public Matrix DeepCopy()
+        {
+            Matrix copy = new Matrix(Rows, Columns);
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Columns; j++)
+                {
+                    copy[i, j] = this[i, j];
+                }
+            }
+            return copy;
+        }
+
+        /// <summary>
         /// Converts the matrix to a string representation.
         /// </summary>
         /// <returns>A string representation of the matrix with formatted values.</returns>

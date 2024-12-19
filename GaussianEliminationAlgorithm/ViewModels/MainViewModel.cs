@@ -3,6 +3,9 @@ using System.Windows.Input;
 using GaussianEliminationAlgorithm.ResultObjects;
 using GaussianEliminationAlgorithm.Services;
 using GaussianEliminationAlgorithm.Helpers;
+using GaussianEliminationAlgorithm.Converters;
+using System.Windows;
+using GaussianEliminationAlgorithm.Models;
 
 namespace GaussianEliminationAlgorithm.ViewModels
 {
@@ -155,8 +158,14 @@ namespace GaussianEliminationAlgorithm.ViewModels
         /// </summary>
         private void CalculateMatrix()
         {
-            // Calculation logic
-            // TODO: Vorwärts und Rückwärtselimination implementieren!!
+            try
+            {
+                GaussianElimination.Execute(Matrix, RightHandSide, _currentMatrixSize);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while calculating the matrix: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         /// <summary>

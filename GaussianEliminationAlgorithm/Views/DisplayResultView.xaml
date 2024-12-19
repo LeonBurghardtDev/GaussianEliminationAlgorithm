@@ -1,0 +1,81 @@
+﻿<Window x:Class="GaussianEliminationAlgorithm.Views.DisplayResultView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Calculation Results"
+        Height="1000" Width="1400"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="#F9F9F9">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Section: Matrix, Right-Hand Side, and Solution -->
+        <ScrollViewer Grid.Row="0" Grid.Column="0" VerticalScrollBarVisibility="Auto" Margin="10">
+            <StackPanel Orientation="Vertical">
+                <!-- Original Matrix and Right-Hand Side -->
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Original Matrix -->
+                    <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,10,0">
+                        <TextBlock Text="input matrix:" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" />
+                        <TextBlock Text="{Binding FormattedOriginalMatrix}" FontFamily="Consolas" FontSize="14"
+                                   TextWrapping="Wrap" VerticalAlignment="Top" />
+                    </StackPanel>
+
+                    <!-- Right-Hand Side Vector -->
+                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                        <TextBlock Text="input b-vector:" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" />
+                        <TextBlock Text="{Binding FormattedRightHandSide}" FontFamily="Consolas" FontSize="14"
+                                   TextWrapping="Wrap" VerticalAlignment="Top" />
+                    </StackPanel>
+                </Grid>
+
+                <!-- Converted Matrix -->
+                <TextBlock Text="Interim result/converted matrix:" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" />
+                <TextBlock Text="{Binding FormattedConvertedMatrix}" FontFamily="Consolas" FontSize="14"
+                           TextWrapping="Wrap" VerticalAlignment="Top" />
+
+                <!-- Solution Vector -->
+                <TextBlock Text="solutions:" FontWeight="Bold" FontSize="16" Margin="0,20,0,10" />
+                <TextBlock Text="{Binding FormattedSolution}" FontFamily="Consolas" FontSize="14"
+                           TextWrapping="Wrap" VerticalAlignment="Top" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Right Section: Logs -->
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" Margin="10">
+            <TextBlock Text="Logs:" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" />
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                          Height="800">
+                <TextBox Text="{Binding Logs, Mode=OneWay}" AcceptsReturn="True" TextWrapping="Wrap"
+                         IsReadOnly="True" VerticalAlignment="Top" Loaded="ScrollToBottom"
+                         VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" />
+            </ScrollViewer>
+        </StackPanel>
+
+        <!-- Bottom Section: Buttons -->
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <Button Content="OK" Width="100" Height="30" Margin="10,0,0,0"
+                    Command="{Binding CloseCommand}" />
+
+            <TextBlock FontSize="11" Foreground="#555" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
+© 2024 
+<Hyperlink NavigateUri="https://leon-burghardt.dev" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#2196F3">
+    Leon Burghardt
+</Hyperlink>. All rights reserved.
+            </TextBlock>
+
+        </StackPanel>
+    </Grid>
+</Window>
